@@ -1,0 +1,31 @@
+# 18. 四数之和
+
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        vector<vector<int> > ret;
+        sort(nums.begin(), nums.end());
+        for(int a = 0; a < int(nums.size() - 3); a++){
+            if(a > 0 && nums[a] == nums[a - 1])continue;
+            for(int b = a + 1; b < int(nums.size() - 2); b++){
+                if(b > a + 1 && nums[b] == nums[b - 1])continue;
+                int c = b + 1, d = nums.size() - 1;
+                while(c < d){
+                    int sum = nums[a] + nums[b] + nums[c] + nums[d];
+                    if(sum < target){
+                        while(c < d && nums[c] == nums[++c]);
+                    }
+                    else if(sum > target){
+                        while(c < d && nums[d] == nums[--d]);
+                    }
+                    else{
+                        ret.push_back(vector<int> {nums[a], nums[b], nums[c], nums[d]});
+                        while(c < d && nums[c] == nums[++c]);
+                        while(c < d && nums[d] == nums[--d]);
+                    }
+                }
+            }
+        }
+        return ret;
+    }
+};
